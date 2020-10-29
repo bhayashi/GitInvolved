@@ -22,6 +22,10 @@ app.use(express.static('public'));
 
 app.use('/build', express.static(path.resolve(__dirname, '../../build')));
 
+app.get('/profile', (_req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../../public/index.html'));
+});
+
 app.use('/api', userAPI);
 
 app.use('/auth', authRouter);

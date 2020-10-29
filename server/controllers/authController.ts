@@ -21,7 +21,7 @@ authController.getData = (req: any, res: any, next: any) => {
     .then((data) => {
       const { access_token } = data;
       res.cookie('loggedIn', true);
-      res.redirect(`localhost:8080/`);
+      res.redirect(`/profile`);
       return next();
     })
     .catch((error) => {
