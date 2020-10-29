@@ -16,21 +16,6 @@ function App() {
       </DndProvider>
     </Switch>
   )
-  // return loggedIn ? (
-  //   <>
-  //     <DndProvider backend={HTML5Backend}>
-  //       {/* <LoginContainer /> */}
-  //       <ProfileContainer />
-  //     </DndProvider>
-  //   </>
-  // ) : (
-  //   <>
-  //     <DndProvider backend={HTML5Backend}>
-  //       <LoginContainer />
-  //       {/* <ProfileContainer /> */}
-  //     </DndProvider>
-  //   </>
-  // )
 }
 
 export const ItemTypes = {
