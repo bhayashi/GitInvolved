@@ -45,7 +45,7 @@ const ProfileContainer = () => {
       forked: true, // ------> do you own main repo or a fork of it
       stargazers: 84, // ------> number of stars
       commits: 'jfksdl', // {type: String, required: true}, //don't use
-      languages_url: 'fds', //{type: String, required: true}, //don't use
+      languages_url: 'fds', // {type: String, required: true}, //don't use
       repoUrl: 'aqls.io',  
       help: false, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
       categories: ['GraphQL', 'Javascript', 'React Hooks'],
@@ -57,7 +57,7 @@ const ProfileContainer = () => {
       forked: false, // ------> do you own main repo or a fork of it
       stargazers: 121, // ------> number of stars
       commits: 'jfksdl', // {type: String, required: true}, //don't use
-      languages_url: 'fds', //{type: String, required: true}, //don't use
+      languages_url: 'fds', // {type: String, required: true}, //don't use
       repoUrl: 'gatsby.io',  
       help: true, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
     }
@@ -72,22 +72,22 @@ const ProfileContainer = () => {
 
   return(
     <div id="profile-container">
-    <Header 
-      makeMyReposActive={() => makeMyReposActive()}
-      myReposActive={myReposActive}
-      makeStarredReposActive={() => makeStarredReposActive()}
-      starredReposActive={starredReposActive}
-    />
-    <div id="cat-and-repo">
-      <CategoryContainer />
-      {
+      <Header 
+        makeMyReposActive={() => makeMyReposActive()}
+        myReposActive={myReposActive}
+        makeStarredReposActive={() => makeStarredReposActive()}
+        starredReposActive={starredReposActive}
+      />
+      <div id="cat-and-repo">
+        <CategoryContainer />
+        {
         myReposActive
         ? <MyRepoContainer data={dummy} />
         : <StarredRepoContainer />
       }
 
+      </div>
     </div>
-  </div>
   )
 };
 
