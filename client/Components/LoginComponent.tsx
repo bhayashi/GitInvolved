@@ -21,7 +21,9 @@ const LoginComponent = () => {
           <label htmlFor="inputpw">Password: </label>
           <input id="inputpw" type="text" onChange={e=>setPassword(e.target.value)} value={password} />
         </div>
-        <input type="submit" value="Login with Github" onClick={handleClick}/>
+        <a href="https://github.com/login/oauth/authorize?client_id=21b87ca77f7f56db3dcf">
+          <input type="button" value="Login with Github" onClick={handleClick} />
+        </a>
       </form>
     </>
   )

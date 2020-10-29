@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import cors from 'cors';
 
 import userAPI from './routes/userAPI';
 
@@ -10,6 +11,7 @@ require('dotenv').config();
 
 const PORT = 3000;
 const app = express();
+app.use(cors());
 
 const uri: string = (typeof process.env.MONGO_URI === 'string') ? process.env.MONGO_URI : '';
 

@@ -6,7 +6,7 @@ import authController from '../controllers/authController';
 
 // Direct user to GitHub for authentication
 authRouter.get('/', (_req, res) => {
-  res.status(301).redirect(`https://www.google.com/`);
+  res.status(301).redirect(`https://github.com/login/oauth/authorize?client_id=21b87ca77f7f56db3dcf`);
 });
 
 // Redirected back from GitHub

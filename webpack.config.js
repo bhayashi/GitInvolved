@@ -16,8 +16,18 @@ module.exports = {
     hot: true,
     port: 8080,
     proxy: {
-      '/': 'http://localhost:3000/',
-      '/api': 'http://localhost:3000/',
+      '/': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/api': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/auth': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
   module: {
