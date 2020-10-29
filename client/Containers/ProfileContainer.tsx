@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import useAsyncEffect from 'use-async-effect';
 import Header from '../Components/Header';
 import CategoryContainer from './CategoryContainer';
 import MyRepoContainer from './MyRepoContainer';
@@ -39,53 +40,34 @@ const ProfileContainer = () => {
 
   const [dummy, setDummy] = useState(fetchData);
   
-  useEffect(() => {
+  useAsyncEffect(async () => {
+    console.log('Before Async in Effect');
+  
     async function fetchUserData() {
-      await fetch('/api/userInfo')
-      .then(res => res.json())
-      .then(res => {
-        console.log('DUMMY2', dummy);
-        setDummy(res.userRepos);
+      const result = await fetch('/api/userInfo')
+      .then((res: any) => {
+        console.log('Before JSON parse');
+        return res.json();
       })
-      .catch(err => console.log(err));
+      .then((res: any)=> {
+        console.log('DUMMY2', dummy);
+        return setDummy(res.userRepos);
+      })
+      .catch((err: any)=> console.log(err));
     }
-    fetchUserData();
-  }, []);
+  
+    await fetchUserData();
+  
+    console.log('After Async in Effect');
+  });
 
-  // const dummyData = [
-  //   { gitId: 432,
-  //     name: 'Aqls', 
-  //     description: 'a way to get aqls. you send an aql to the traql, and the traql sends it up to the aql server, and if you don\'t get back all the aqls, you get an error aql',
-  //     owner: 'julie pinchak',
-  //     forked: true, // ------> do you own main repo or a fork of it
-  //     stargazers: 84, // ------> number of stars
-  //     commits: 'jfksdl', // {type: String, required: true}, //don't use
-  //     languages_url: 'fds', // {type: String, required: true}, //don't use
-  //     repoUrl: 'aqls.io',  
-  //     help: false, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
-  //     categories: ['GraphQL', 'Javascript', 'React Hooks'],
-  //   },
-  //   { gitId: 434,
-  //     name: 'Gatsby', 
-  //     description: 'got tons of attention, they are now super famous, they all deserve super awesome jobs working for gatsby, so everyone go star their stuff',
-  //     owner: 'bhash',
-  //     forked: false, // ------> do you own main repo or a fork of it
-  //     stargazers: 121, // ------> number of stars
-  //     commits: 'jfksdl', // {type: String, required: true}, //don't use
-  //     languages_url: 'fds', // {type: String, required: true}, //don't use
-  //     repoUrl: 'gatsby.io',  
-  //     help: true, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
-  //   }
-  // ];
-
-
+  
+  
   const makeStarredReposActive = () => {
     setStarredReposActive(true);
     setMyReposActive(false);
   }
-
-  console.log('DUMMY1', dummy);
-
+  
   return(
     <div id="profile-container">
       <Header 
@@ -96,11 +78,9 @@ const ProfileContainer = () => {
       />
       <div id="cat-and-repo">
         <CategoryContainer />
-        {
-        myReposActive
+        { myReposActive
         ? <MyRepoContainer data={dummy} />
-        : <StarredRepoContainer />
-      }
+        : <StarredRepoContainer /> }
 
       </div>
     </div>
@@ -108,3 +88,29 @@ const ProfileContainer = () => {
 };
 
 export default ProfileContainer;
+
+// const dummyData = [
+//   { gitId: 432,
+//     name: 'Aqls', 
+//     description: 'a way to get aqls. you send an aql to the traql, and the traql sends it up to the aql server, and if you don\'t get back all the aqls, you get an error aql',
+//     owner: 'julie pinchak',
+//     forked: true, // ------> do you own main repo or a fork of it
+//     stargazers: 84, // ------> number of stars
+//     commits: 'jfksdl', // {type: String, required: true}, //don't use
+//     languages_url: 'fds', // {type: String, required: true}, //don't use
+//     repoUrl: 'aqls.io',  
+//     help: false, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
+//     categories: ['GraphQL', 'Javascript', 'React Hooks'],
+//   },
+//   { gitId: 434,
+//     name: 'Gatsby', 
+//     description: 'got tons of attention, they are now super famous, they all deserve super awesome jobs working for gatsby, so everyone go star their stuff',
+//     owner: 'bhash',
+//     forked: false, // ------> do you own main repo or a fork of it
+//     stargazers: 121, // ------> number of stars
+//     commits: 'jfksdl', // {type: String, required: true}, //don't use
+//     languages_url: 'fds', // {type: String, required: true}, //don't use
+//     repoUrl: 'gatsby.io',  
+//     help: true, // do they want help with their repo or not // when clicking, send gitId, project name, and true or false}
+//   }
+// ];
