@@ -39,21 +39,25 @@ const ProfileContainer = () => {
   }
 
   const [dummy, setDummy] = useState(fetchData);
+  const [status, setStatus] = useState(true);
   
   useAsyncEffect(async () => {
     console.log('Before Async in Effect');
   
     async function fetchUserData() {
-      const result = await fetch('/api/userInfo')
-      .then((res: any) => {
-        console.log('Before JSON parse');
-        return res.json();
-      })
-      .then((res: any)=> {
-        console.log('DUMMY2', dummy);
-        return setDummy(res.userRepos);
-      })
-      .catch((err: any)=> console.log(err));
+      if (status) {
+        setStatus(false);
+        const result = await fetch('/api/userInfo')
+          .then((res: any) => {
+            console.log('Before JSON parse');
+             return res.json();
+          })
+          .then((res: any)=> {
+            console.log('DUMMY2', dummy);
+            return setDummy(res.userRepos);
+          })
+          .catch((err: any)=> console.log(err));
+      }
     }
   
     await fetchUserData();
